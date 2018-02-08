@@ -656,7 +656,7 @@ class Html extends BaseWriter
                     if ((!$this->embedImages) || ($this->isPdf)) {
                         $imageData = $filename;
                     } else {
-                        $imageDetails = getimagesize($filename);
+                        $imageDetails = getimagesizefromstring(file_get_contents($filename));
                         if ($fp = fopen($filename, 'rb', 0)) {
                             $picture = fread($fp, filesize($filename));
                             fclose($fp);
@@ -722,7 +722,8 @@ class Html extends BaseWriter
                     }
 
                     $html .= PHP_EOL;
-                    $imageDetails = getimagesize($chartFileName);
+                    $imageDetails = getimagesizefromstring(file_get_contents($chartFileName));
+
                     if ($fp = fopen($chartFileName, 'rb', 0)) {
                         $picture = fread($fp, filesize($chartFileName));
                         fclose($fp);
